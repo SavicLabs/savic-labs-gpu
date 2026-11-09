@@ -1,0 +1,12 @@
+{
+  "savicLabsGpu.command.toggle": "SavicLabs GPU: Toggle Monitor",
+  "savicLabsGpu.command.openPanel": "SavicLabs GPU: Open Detail Panel",
+  "savicLabsGpu.command.refresh": "SavicLabs GPU: Refresh",
+  "savicLabsGpu.config.title": "SavicLabs GPU Monitor",
+  "savicLabsGpu.config.enabled": "Enable the GPU monitor in the status bar.",
+  "savicLabsGpu.config.pollIntervalMs": "How often to poll GPU stats (milliseconds). Lower = more responsive, higher = less CPU usage.",
+  "savicLabsGpu.config.alertVramPercent": "VRAM usage percentage that triggers a warning notification.",
+  "savicLabsGpu.config.alertTempCelsius": "GPU temperature (Celsius) that triggers a warning notification.",
+  "savicLabsGpu.config.statusBarFormat": "Format string for the status bar. Variables: ${name}, ${vramUsed}, ${vramTotal}, ${vramPercent}, ${temp}, ${util}. Example: GPU ${name} · ${vramUsed}/${vramTotal} · ${temp}°C",
+  "savicLabsGpu.config.showUtilization": "Show GPU compute utilization percentage in the status bar."
+}
