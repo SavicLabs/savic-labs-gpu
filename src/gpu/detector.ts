@@ -1,18 +1,8 @@
 /** Auto-detect GPU vendor. Caches result after first detection. */
-import { exec } from 'node:child_process';
 import type { GpuVendor } from './types';
+import { execAsync } from './exec';
 
 let cachedVendor: GpuVendor | undefined;
-
-/** Promise-based exec helper with timeout. */
-function execAsync(cmd: string, timeoutMs: number = 5000): Promise<string> {
-  return new Promise((resolve, reject) => {
-    exec(cmd, { timeout: timeoutMs }, (err, stdout) => {
-      if (err) reject(err);
-      else resolve(stdout);
-    });
-  });
-}
 
 /** Check if a command exists on the system (non-blocking). */
 async function cmdExistsAsync(cmd: string): Promise<boolean> {

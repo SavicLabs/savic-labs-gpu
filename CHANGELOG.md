@@ -5,6 +5,36 @@ All notable changes to the SavicLabs GPU Monitor extension will be documented in
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.4] — 2026-11-13
+
+### Fixed
+- **AMD: phantom GPU and shifted indices** — `rocm-smi --json` returns a non-GPU
+  `system` entry alongside `card0…cardN`. Enumerating every value created a fake
+  device and renumbered the real ones. Only `card*` keys are used now, sorted numerically.
+- **Intel: no devices at all on Linux** — `intel_gpu_top -J` emits an array of samples;
+  the parser treated it as an object, so Intel GPUs always reported zero stats.
+- **Intel: engines were reported as separate GPUs** — one physical GPU now yields one
+  device. Utilisation is the Render/3D engine's busy value, not a sum of engines, which
+  could exceed 100%.
+- **Intel: client memory was labelled MiB but reported in bytes.**
+- **Windows: unmatched performance counters fell back to the first key**, attributing one
+  GPU's memory to another. Unknown totals now report 0 instead of a fake 1 MiB.
+- **Detail panel: the theme-accent regex never matched**, because its backslashes were
+  consumed by the template literal, so the chart always used the default colour.
+- **Polling could overlap** — `setInterval` with an async query queued a second query
+  while the first was still running. Polling now reschedules after each completion.
+- `savicLabsGpu.enabled` changed from the Settings UI was ignored; only the toggle
+  command worked. The panel is also disposed when polling stops.
+
+### Added
+- LICENSE file (the manifest declared MIT but the repository had none).
+- Parser tests, oxlint, and a CI workflow.
+
+### Notes
+- Intel reports no memory figures; `intel_gpu_top` does not expose them, and
+  integrated GPUs share system RAM. VRAM fields read as zero rather than estimated.
+- Intel multi-GPU is not supported; one sample is read and reported as one device.
+
 ## [Unreleased]
 
 ## [0.2.1] — 2026-07-29

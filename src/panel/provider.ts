@@ -356,7 +356,7 @@ function getPanelHtml(): string {
         var accentRgb = getComputedStyle(document.body).getPropertyValue('--vscode-focusBorder').trim();
         // Parse rgb(r, g, b) or #rrggbb into components
         var r = 0, g = 122, b = 204; // default blue
-        var m = accentRgb.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+        var m = accentRgb.match(/rgb\\((\\d+),\\s*(\\d+),\\s*(\\d+)\\)/);
         if (m) { r = +m[1]; g = +m[2]; b = +m[3]; }
         else if (accentRgb.startsWith('#')) {
           r = parseInt(accentRgb.slice(1,3), 16); g = parseInt(accentRgb.slice(3,5), 16); b = parseInt(accentRgb.slice(5,7), 16);

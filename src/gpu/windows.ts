@@ -34,7 +34,7 @@ export async function queryWindowsGpus(): Promise<GpuStats[]> {
       index: index++,
       name: ctrl.name,
       vramUsedMiB: vramUsed,
-      vramTotalMiB: vramTotal || 1,
+      vramTotalMiB: vramTotal,
       vramPercent: vramTotal > 0 ? Math.round((vramUsed / vramTotal) * 100) : 0,
       temperatureC: 0,
       utilizationGpu: util,
@@ -116,6 +116,6 @@ function findCounterKey(counters: Record<string, number>, gpuName: string): stri
     if (key.toLowerCase().includes(nameLower.substring(0, 8))) return key;
     if (nameLower.includes(key.toLowerCase().substring(0, 8))) return key;
   }
-  // Fallback: first key
-  return Object.keys(counters)[0];
+  // No match: report nothing rather than attributing another GPU's figures.
+  return undefined;
 }

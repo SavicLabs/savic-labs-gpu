@@ -3,7 +3,7 @@
   "displayName": "SavicLabs GPU Monitor",
   "description": "Real-time GPU monitor in your VS Code status bar. VRAM, temperature, utilization — click for detail panel. NVIDIA, AMD, Intel, Apple Silicon. Windows, Linux, macOS.",
   "icon": "resources/icon.png",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "publisher": "SavicLabs",
   "license": "MIT",
   "repository": {
@@ -99,7 +99,13 @@
     "vscode:prepublish": "npm run compile",
     "compile": "npm run clean && tsc -p ./",
     "watch": "npm run clean && tsc -watch -p ./",
-    "lint": "tsc --noEmit -p ./"
+    "typecheck": "tsc --noEmit -p ./",
+    "lint": "oxlint --deny-warnings src",
+    "test": "npm run compile && node --test \"test/*.test.cjs\"",
+    "package": "npx @vscode/vsce package",
+    "publish": "npx @vscode/vsce publish",
+    "login": "npx @vscode/vsce login SavicLabs",
+    "test:host": "npm run compile && node ./test/host/index.js"
   },
   "author": "",
   "bugs": {
@@ -108,8 +114,11 @@
   "devDependencies": {
     "@types/node": "^26.1.1",
     "@types/vscode": "^1.95.0",
+    "@vscode/test-electron": "^3.1.0",
     "@vscode/vsce": "^4.1.0",
+    "mocha": "^12.0.3",
     "ovsx": "^1.3.0",
+    "oxlint": "^1.93.0",
     "typescript": "^7.0.2"
   }
 }
